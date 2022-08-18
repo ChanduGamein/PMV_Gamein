@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/WebGLExample.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/Plugins/Ready Player Me/Examples/Runtime Example/RuntimeExample.unity
-    guid: 025b33ea095021b40b6d00fa59f3c71d
+    path: Assets/Scenes/Home.unity
+    guid: b4613579cf040a44699bec943a297e76
+  - enabled: 1
+    path: Assets/Scenes/MetaverseEnvironment1.unity
+    guid: e5f8436f665cd8d42b9abb54d0ea530d
   m_configObjects: {}

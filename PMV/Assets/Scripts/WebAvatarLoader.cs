@@ -6,7 +6,7 @@ public class WebAvatarLoader : MonoBehaviour
     private GameObject avatar;
     private string AvatarURL = "";
     private AvatarLoader avatarLoader;
-
+    [SerializeField] GameObject Test_avatar;
     private void Start()
     {
         PartnerSO partner = Resources.Load<PartnerSO>("Partner");
@@ -29,11 +29,25 @@ public class WebAvatarLoader : MonoBehaviour
     private void OnAvatarImported(GameObject avatar)
     {
         Debug.Log($"Avatar imported. [{Time.timeSinceLevelLoad:F2}]");
+
     }
 
     private void OnAvatarLoaded(GameObject avatar, AvatarMetaData metaData)
     {
         this.avatar = avatar;
         Debug.Log($"Avatar loaded. [{Time.timeSinceLevelLoad:F2}]\n\n{metaData}");
+        if (avatar.GetComponent<Animator>().avatar.name.Equals("FeminineAnimationAvatar")) {
+            //Female
+            AvatarHolderManager.instance.MaleAvatar = false;
+        } else {
+            //Male
+            AvatarHolderManager.instance.MaleAvatar = true;
+        }
+        AvatarHolderManager.instance.avatar = this.avatar;
+        AvatarHolderManager.instance.LoadMetaverseScene();
+    }
+    public void Test() {
+        AvatarHolderManager.instance.avatar = Test_avatar;
+        AvatarHolderManager.instance.LoadMetaverseScene();
     }
 }

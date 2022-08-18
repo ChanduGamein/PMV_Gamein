@@ -22,6 +22,7 @@ namespace ReadyPlayerMe
         private void OnAvatarLoaded(GameObject avatar, AvatarMetaData metaData)
         {
             Debug.Log($"Avatar loaded. [{Time.timeSinceLevelLoad:F2}]\n\n{metaData}");
+
         }
     }
 }
