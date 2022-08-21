@@ -11,8 +11,6 @@ public class AvatarHolderManager : MonoBehaviour {
     }
     public GameObject avatar;
     public bool MaleAvatar;
-    [SerializeField] TMP_Dropdown AvatarSlectionDropDown;
-    [SerializeField] GameObject RuntimeTestObject;
     private void Awake() {
         if (instance == null) {
             instance = this;
@@ -25,10 +23,7 @@ public class AvatarHolderManager : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
+    
     public void LoadMetaverseScene() {
         StartCoroutine(_SceneLoading());
     }
@@ -39,16 +34,5 @@ public class AvatarHolderManager : MonoBehaviour {
         SceneManager.LoadScene(1);
 
     }
-    public void _AvatarSlectionDropDown() {
-        if (AvatarSlectionDropDown.value == 1) {
-            MaleAvatar = true;
-        } else {
-            MaleAvatar = false;
-
-        }
-        if (RuntimeTestObject!=null) {
-            RuntimeTestObject.SetActive(true);
-        }
-        AvatarSlectionDropDown.gameObject.SetActive(false);
-    }
+    
 }

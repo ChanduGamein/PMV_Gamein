@@ -4,57 +4,73 @@ using UnityEngine;
 
 public class AvatarLoadingManager : MonoBehaviour
 {
-    [SerializeField] GameObject MalePlayerGrp,FemalePlayerGrp;
-    [SerializeField] GameObject Avatar,MaleDefaultAvatar,FemaleDefaultAvatar;
-    [SerializeField] GameObject CameraTemp;
+    [SerializeField] GameObject PlayerGrp;
+    [SerializeField] GameObject Avatar, MaleDefaultAvatar, FemaleDefaultAvatar;
+    [SerializeField] GameObject MaleDefaultAvatarObjectRef, FemaleDefaultAvatarObjectRef;
+    [SerializeField] Avatar Male, Female;
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Awake() {
+        PlayerGrp.SetActive(false);
+
     }
+    private void Start() {
+        if (AvatarHolderManager.instance.avatar == null) {
+            Debug.Log("in1");
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (AvatarHolderManager.instance != null && Avatar==null) {
+            //for Default avtar
             if (AvatarHolderManager.instance.MaleAvatar) {
-                Destroy(MaleDefaultAvatar.gameObject);
-
-                Avatar = AvatarHolderManager.instance.avatar;
-                if (Avatar.GetComponent<Animator>() != null) Avatar.GetComponent<Animator>().enabled = false;
-                Avatar.transform.SetParent(MalePlayerGrp.transform);
-                Avatar.transform.localPosition = Vector3.zero;
-                // PlayerGrp.GetComponent<Animator>().enabled = false;
-                MalePlayerGrp.SetActive(false);
-
+                MaleDefaultAvatarObjectRef = Instantiate(MaleDefaultAvatar, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                MaleDefaultAvatarObjectRef.transform.SetParent(PlayerGrp.transform);
+                MaleDefaultAvatarObjectRef.transform.localPosition = Vector3.zero;
+                if (MaleDefaultAvatarObjectRef.GetComponent<Animator>() != null) MaleDefaultAvatarObjectRef.GetComponent<Animator>().enabled = false;
             } else {
-                Destroy(FemaleDefaultAvatar.gameObject);
+                FemaleDefaultAvatarObjectRef = Instantiate(FemaleDefaultAvatar, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                FemaleDefaultAvatarObjectRef.transform.SetParent(PlayerGrp.transform);
+                FemaleDefaultAvatarObjectRef.transform.localPosition = Vector3.zero;
+                if (FemaleDefaultAvatarObjectRef.GetComponent<Animator>() != null) FemaleDefaultAvatarObjectRef.GetComponent<Animator>().enabled = false;
 
-                Avatar = AvatarHolderManager.instance.avatar;
-                if (Avatar.GetComponent<Animator>() != null) Avatar.GetComponent<Animator>().enabled = false;
-                Avatar.transform.SetParent(FemalePlayerGrp.transform);
-                Avatar.transform.localPosition = Vector3.zero;
-                // PlayerGrp.GetComponent<Animator>().enabled = false;
-                FemalePlayerGrp.SetActive(false);
+            }
+        }
+        StartCoroutine(EnablePlayerObject());
+
+    }
+    // Update is called once per frame
+    void Update() {
+        if (!PlayerGrp.activeInHierarchy) {
+            //for Customized avtar
+            if (AvatarHolderManager.instance.avatar != null) {
+                if (AvatarHolderManager.instance != null && Avatar == null) {
+                    if (MaleDefaultAvatarObjectRef != null) Destroy(MaleDefaultAvatarObjectRef.gameObject);
+                    if (FemaleDefaultAvatarObjectRef != null) Destroy(FemaleDefaultAvatarObjectRef.gameObject);
+
+                    Avatar = AvatarHolderManager.instance.avatar;
+                    if (Avatar.GetComponent<Animator>() != null) Avatar.GetComponent<Animator>().enabled = false;
+                    Avatar.transform.SetParent(PlayerGrp.transform);
+                    Avatar.transform.localPosition = Vector3.zero;
+
+
+                }
+
+                Debug.Log("in2");
 
             }
 
+            StartCoroutine(EnablePlayerObject());
+
         }
-        if (Avatar!=null && !MalePlayerGrp.activeInHierarchy && AvatarHolderManager.instance.MaleAvatar) {
-            StartCoroutine(EnableMalePlayerObject());
-        }else if (Avatar!=null && !FemalePlayerGrp.activeInHierarchy && !AvatarHolderManager.instance.MaleAvatar) {
-            StartCoroutine(EnableFemalePlayerObject());
-        }
-    }
-    IEnumerator EnableMalePlayerObject() {
-        yield return new WaitForSeconds(2f);
-        MalePlayerGrp.SetActive(true);
-        CameraTemp.SetActive(false);
-    }
-    IEnumerator EnableFemalePlayerObject() {
-        yield return new WaitForSeconds(2f);
-        FemalePlayerGrp.SetActive(true);
-        CameraTemp.SetActive(false);
+
+
 
     }
+    IEnumerator EnablePlayerObject() {
+        if (AvatarHolderManager.instance.MaleAvatar) {
+            PlayerGrp.GetComponent<Animator>().avatar = Male;
+        } else {
+            PlayerGrp.GetComponent<Animator>().avatar = Female;
+        }
+
+        yield return new WaitForSeconds(1f);
+        PlayerGrp.SetActive(true);
+    }
+
 }
