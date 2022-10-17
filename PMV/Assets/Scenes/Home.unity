@@ -1284,7 +1284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 0}
-  MaleAvatar: 0
+  MaleAvatar: 1
 --- !u!4 &1671157704
 Transform:
   m_ObjectHideFlags: 0
