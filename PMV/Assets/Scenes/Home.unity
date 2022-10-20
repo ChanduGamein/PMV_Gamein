@@ -1475,7 +1475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90d00a17a798ac409f9e9ae145f1aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AvatarURL: https://d1a370nemizbjq.cloudfront.net/de97f035-5827-4a3e-aa3a-e6da8c9dd34b.glb
+  AvatarURL: https://d1a370nemizbjq.cloudfront.net/9bcc6840-8b8b-420d-a9d8-bc9c275fce8f.glb
   AvatarURL2: https://d1a370nemizbjq.cloudfront.net/ab1f14de-ce56-412a-b29b-54b78408e4db.glb
 --- !u!1 &2054810474
 GameObject:
